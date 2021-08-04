@@ -2,48 +2,48 @@
   display: flex;
 }
 
-.settings__wrapper {
+.settingsWrapper {
   flex: 9;
   padding: 20px;
 }
 
-.settings__title {
+.settingsTitle {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.settings__update-title {
+.settingsUpdateTitle {
   font-size: 30px;
   margin-bottom: 20px;
   color: lightcoral;
 }
 
-.settings__delete-title {
+.settingsDeleteTitle {
   color: red;
   font-size: 12px;
   cursor: pointer;
 }
 
-.settings__form {
+.settingsForm {
   display: flex;
   flex-direction: column;
 }
 
-.settings__pp {
+.settingsPP {
   display: flex;
   align-items: center;
   margin: 10px 0;
 }
 
-.settings__pp > img {
+.settingsPP > img {
   width: 70px;
   height: 70px;
   border-radius: 20px;
   object-fit: cover;
 }
 
-.settings__pp-icon {
+.settingsPPIcon {
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -56,12 +56,12 @@
   cursor: pointer;
 }
 
-.settings__form > label {
+.settingsForm > label {
   font-size: 20px;
   margin-top: 20px;
 }
 
-.settings__form > input {
+.settingsForm > input {
   color: gray;
   margin: 10px 0;
   height: 30px;
@@ -69,7 +69,7 @@
   border-bottom: 1px solid lightgray;
 }
 
-.settings__submit {
+.settingsSubmit {
   width: 150px;
   align-self: center;
   border: none;

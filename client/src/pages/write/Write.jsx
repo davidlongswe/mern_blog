@@ -1,25 +1,61 @@
 import "./write.css";
+import { useContext, useState } from "react";
+import axios from "axios";
+import { Context } from "../../context/Context";
 
 export default function Write() {
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [file, setFile] = useState(null);
+  const { user } = useContext(Context);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newPost = {
+      username: user.username,
+      title,
+      desc,
+    };
+    if (file) {
+      const data = new FormData();
+      const filename = Date.now() + file.name;
+      data.append("name", filename);
+      data.append("file", file);
+      newPost.photo = filename;
+      try {
+        await axios.post("/upload", data);
+      } catch (err) {}
+    }
+    try {
+      const res = await axios.post("/posts", newPost);
+      window.location.replace("/post/" + res.data._id);
+    } catch (err) {}
+  };
+
   return (
     <div className="write">
-      <img
-        className="write__image"
-        src="https://wpmu.mah.se/nmict172group7/files/2017/09/blog.jpg"
-        alt=""
-      />
-      <form className="write__form">
+      {file && (
+        <img className="write__image" src={URL.createObjectURL(file)} alt="" />
+      )}
+
+      <form className="write__form" onSubmit={handleSubmit}>
         <div className="write__form-group">
           <label htmlFor="fileInput">
             <i className="write__icon fas fa-plus"></i>
           </label>
-          <input type="file" id="fileInput" style={{ display: "none" }} />
+          <input
+            type="file"
+            id="fileInput"
+            style={{ display: "none" }}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
           <input
             type="text"
             id="title"
             placeholder="Title"
             className="write__input"
             autoFocus={true}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div className="write__form-group">
@@ -27,9 +63,12 @@ export default function Write() {
             placeholder="Tell your story..."
             type="text"
             className="write__input write__text"
+            onChange={(e) => setDesc(e.target.value)}
           ></textarea>
         </div>
-        <button className="write__submit">Publish</button>
+        <button className="write__submit" type="submit">
+          Publish
+        </button>
       </form>
     </div>
   );
